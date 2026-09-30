@@ -11,6 +11,7 @@ Read **[ASSIGNMENT.md](./ASSIGNMENT.md)** for the full brief before you start.
 You're welcome to use AI tools. What we're evaluating is your ability to read and reason about unfamiliar code — so your submission should reflect your own understanding, not just generated output.
 
 Concretely:
+
 - For each bug you report: include where in the code it lives and why it happens
 - For the feature you implement: briefly explain the design decisions you made
 - If something surprised you or you had to make a tradeoff, say so
@@ -57,15 +58,15 @@ ASSIGNMENT.md               # Full brief — read this first
 
 ## API Reference
 
-| Method   | Path                      | Description                              |
-|----------|---------------------------|------------------------------------------|
-| `GET`    | `/tasks`                  | List all tasks. Supports `?status=`, `?page=`, `?limit=` |
-| `POST`   | `/tasks`                  | Create a new task                        |
-| `PUT`    | `/tasks/:id`              | Full update of a task                    |
-| `DELETE` | `/tasks/:id`              | Delete a task (returns 204)              |
-| `PATCH`  | `/tasks/:id/complete`     | Mark a task as complete                  |
-| `GET`    | `/tasks/stats`            | Counts by status + overdue count         |
-| `PATCH`  | `/tasks/:id/assign`       | **Assign a task to a user** _(to implement)_ |
+| Method   | Path                  | Description                                              |
+| -------- | --------------------- | -------------------------------------------------------- |
+| `GET`    | `/tasks`              | List all tasks. Supports `?status=`, `?page=`, `?limit=` |
+| `POST`   | `/tasks`              | Create a new task                                        |
+| `PUT`    | `/tasks/:id`          | Partial update of a task                                 |
+| `DELETE` | `/tasks/:id`          | Delete a task (returns 204)                              |
+| `PATCH`  | `/tasks/:id/complete` | Mark a task as complete                                  |
+| `GET`    | `/tasks/stats`        | Counts by status + overdue count                         |
+| `PATCH`  | `/tasks/:id/assign`   | **Assign a task to a user** _(to implement)_             |
 
 ### Task shape
 
@@ -74,7 +75,7 @@ ASSIGNMENT.md               # Full brief — read this first
   "id": "uuid",
   "title": "string",
   "description": "string",
-  "status": "pending | in-progress | completed",
+  "status": "todo | in-progress | done",
   "priority": "low | medium | high",
   "dueDate": "ISO 8601 or null",
   "completedAt": "ISO 8601 or null",
@@ -85,6 +86,7 @@ ASSIGNMENT.md               # Full brief — read this first
 ### Sample requests
 
 **Create a task**
+
 ```bash
 curl -X POST http://localhost:3000/tasks \
   -H "Content-Type: application/json" \
@@ -92,11 +94,13 @@ curl -X POST http://localhost:3000/tasks \
 ```
 
 **List tasks with filter**
+
 ```bash
 curl "http://localhost:3000/tasks?status=pending&page=1&limit=10"
 ```
 
 **Mark complete**
+
 ```bash
 curl -X PATCH http://localhost:3000/tasks/<id>/complete
 ```
